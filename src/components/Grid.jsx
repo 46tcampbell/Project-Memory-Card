@@ -1,22 +1,49 @@
-// import { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import '../styles/Grid.css';
 import Card from './Card';
 
 export default function Grid() {
-  const pokemonIds = [3, 6, 9, 12, 15, 18, 20, 22, 24, 25, 28, 31];
+  const [data, setData] = useState([]);
+
+  useEffect(() => {
+    const controller = new AbortController();
+    const pokemonIds = [3, 6, 9, 12, 15, 18, 20, 22, 24, 25, 28, 31];
+
+    const fetchData = async () => {
+      try {
+        const promises = pokemonIds.map((id) =>
+          fetch(`https://pokeapi.co/api/v2/pokemon/${id}/`, {
+            signal: controller.signal,
+          }).then((res) => res.json())
+        );
+        const pokemonData = await Promise.all(promises);
+        setData(pokemonData);
+      } catch (error) {
+        console.error(error);
+      }
+    };
+    fetchData();
+    return () => controller.abort();
+  }, []);
+
   const shuffle = () => {
-    pokemonIds.sort(() => Math.random() - 0.5);
-    console.log(pokemonIds);
+    const tempData = [...data];
+    tempData.sort(() => Math.random() - 0.5);
+    setData([...tempData]);
   };
+
   return (
     <div className='grid'>
-      {pokemonIds.map((id) => {
-        return <Card key={id} id={id} clickHandler={shuffle} />;
+      {data.map((pokemon) => {
+        return (
+          <Card
+            key={pokemon.id}
+            imgURL={pokemon.sprites.front_default}
+            name={pokemon.name}
+            clickHandler={shuffle}
+          />
+        );
       })}
     </div>
-    /* Inside the above, have a rendering list that uses numbers in an array
-    to pass to the card component and also pass the shuffle function so that it can run 
-    on a click on a card.
-    */
   );
 }
