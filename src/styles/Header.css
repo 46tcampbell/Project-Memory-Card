@@ -1,10 +1,18 @@
-h1,
-div {
-  color: white;
+h1 {
+  color: var(--main-white-color);
+  font-size: 3rem;
+  line-height: 1;
+}
+
+div.scoreBoard {
+  color: var(--main-white-color);
+  font-size: 1.5rem;
+  font-weight: bold;
 }
 
 header {
   display: flex;
   justify-content: space-between;
   padding-bottom: 2rem;
+  align-items: start;
 }

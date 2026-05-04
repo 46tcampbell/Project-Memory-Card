@@ -1,11 +1,15 @@
 div.card {
-  width: 250px;
-  /* height: 250px; */
-  background-color: yellow;
+  width: 300px;
+  background-color: var(--main-yellow-color);
   border-radius: 0.5rem;
   display: grid;
   grid-template-rows: 1fr min-content;
   padding: 0.5rem;
+  cursor: pointer;
+}
+
+div.card:hover {
+  box-shadow: 0px 0px 15px 5px #ff0000;
 }
 
 img {
@@ -17,8 +21,8 @@ img {
 
 h2 {
   text-align: center;
-  color: white;
-  background-color: blue;
+  color: var(--main-white-color);
+  background-color: var(--main-blue-color);
   border-radius: 0.5rem;
 }
 

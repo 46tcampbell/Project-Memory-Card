@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react';
 import '../styles/Grid.css';
 import Card from './Card';
 
-export default function Grid({ score, setScore }) {
+export default function Grid({ score, setScore, bestScore, setBestScore }) {
   const [data, setData] = useState([]);
 
   const shuffle = (data) => {
@@ -50,14 +50,10 @@ export default function Grid({ score, setScore }) {
     });
     const shuffledUpdatedData = shuffle(updatedData);
     setData(shuffledUpdatedData);
-    // console.log(updatedData);
-    // console.log(data);
   };
 
   const checkIsClicked = (id) => {
     const clickedPokemon = data.find((pokemon) => pokemon.id === id);
-    // console.log(data);
-    // console.log(clickedPokemon);
     return clickedPokemon.isClicked;
   };
 
@@ -71,20 +67,22 @@ export default function Grid({ score, setScore }) {
     setData(shuffledUpdatedData);
   };
 
+  const updateBestScore = () => {
+    if (score > bestScore) {
+      setBestScore(score);
+    }
+  };
+
   const clickHandler = (id) => {
-    console.log(data);
     if (!checkIsClicked(id)) {
       setScore(score + 1);
-      // setIsClicked(true);
       toggleIsClicked(id);
     }
     if (checkIsClicked(id)) {
       setScore(0);
-      // setIsClicked(false);
+      updateBestScore();
       toggleIsClickedAll();
     }
-    // console.log(e.target.closest('.card').id);
-    // shuffle();
   };
 
   return (
