@@ -1,0 +1,10 @@
+h1,
+div {
+  color: white;
+}
+
+header {
+  display: flex;
+  justify-content: space-between;
+  padding-bottom: 2rem;
+}

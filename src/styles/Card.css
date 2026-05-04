@@ -17,6 +17,9 @@ img {
 
 h2 {
   text-align: center;
+  color: white;
+  background-color: blue;
+  border-radius: 0.5rem;
 }
 
 h2::first-letter {
